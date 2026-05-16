@@ -1,0 +1,5 @@
+spring:
+  data:
+    mongodb:
+      uri: mongodb+srv://sadetechnosolutions:oL9rXf6YWECnNgVf@sademondo.rdnxi.mongodb.net/?retryWrites=true&w=majority&appName=sademondo
+      database: user_login

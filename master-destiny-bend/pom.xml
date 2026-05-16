@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <packaging>pom</packaging>
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>3.3.2</version>
+        <relativePath/> <!-- lookup parent from repository -->
+    </parent>
+    <groupId>com.Sadetechno</groupId>
+    <artifactId>Destiny-microservice</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+    <name>Destiny-microservice</name>
+    <description>Destiny project for Spring Boot</description>
+    <url/>
+    <licenses>
+        <license/>
+    </licenses>
+    <developers>
+        <developer/>
+    </developers>
+    <scm>
+        <connection/>
+        <developerConnection/>
+        <tag/>
+        <url/>
+    </scm>
+    <properties>
+        <java.version>20</java.version>
+    </properties>
+    <dependencies>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter</artifactId>
+        </dependency>
+
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+        </plugins>
+    </build>
+    <modules>
+        <module>eureka-server</module>
+        <module>api-gateway</module>
+        <module>comment-module</module>
+        <module>jwt-module</module>
+        <module>user-module</module>
+        <module>post-module</module>
+        <module>status-module</module>
+        <module>follow-module</module>
+        <module>reels-module</module>
+        <module>friend-request-module</module>
+        <module>websocket-messaging</module>
+        <module>notification-module</module>
+        <module>home_api_module</module>
+        <module>permission-module</module>
+        <module>settings</module>
+        <module>media-aggregate-service</module>
+        <module>like-module</module>
+        <module>Actuator</module>
+        <module>admin-login</module>
+        <module>profession</module>
+    </modules>
+</project>

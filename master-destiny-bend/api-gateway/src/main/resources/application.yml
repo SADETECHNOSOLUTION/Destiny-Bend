@@ -1,0 +1,264 @@
+# Application name and server port
+spring:
+  application:
+    name: api-gateway
+  boot:
+    admin:
+      client:
+        url: http://localhost:8097
+  main:
+    web-application-type: reactive
+  cloud:
+    gateway:
+      globalCors:
+        cors-configurations:
+          '[/**]':
+            allowed-origin-patterns: "http://localhost:3000"
+            allowed-methods:
+              - GET
+              - POST
+              - PUT
+              - DELETE
+              - OPTIONS
+              - PATCH
+            allowed-headers: "*"
+            allow-credentials: true
+      routes:
+        # Example of Rate-Limited Routes
+        - id: jwt-module
+          uri: lb://JWT-MODULE
+          predicates:
+            - Path=/api/auth/**
+          filters:
+            - name: JwtAuthFilter
+            - name: RequestRateLimiter
+              args:
+                redis-rate-limiter.replenishRate: 5   # 5 requests per second
+                redis-rate-limiter.burstCapacity: 10  # Allows burst requests
+                key-resolver: "#{@jwtKeyResolver}"
+
+        - id: user-module
+          uri: lb://USER-MODULE
+          predicates:
+            - Path=/api/users/**,/uploads/**
+          filters:
+            - name: JwtAuthFilter
+            - name: RequestRateLimiter
+              args:
+                redis-rate-limiter.replenishRate: 5   # 5 requests per second
+                redis-rate-limiter.burstCapacity: 10  # Allows burst requests
+                key-resolver: "#{@jwtKeyResolver}"
+
+        - id: post-module
+          uri: lb://POST-MODULE
+          predicates:
+            - Path=/posts/**,/uploads/**
+          filters:
+            - name: JwtAuthFilter
+            - name: RequestRateLimiter
+              args:
+                redis-rate-limiter.replenishRate: 5   # 5 requests per second
+                redis-rate-limiter.burstCapacity: 10  # Allows burst requests
+                key-resolver: "#{@jwtKeyResolver}"
+
+        - id: like-module
+          uri: lb://LIKE-MODULE
+          predicates:
+            - Path=/likes/**
+          filters:
+            - name: JwtAuthFilter
+            - name: RequestRateLimiter
+              args:
+                redis-rate-limiter.replenishRate: 5   # 5 requests per second
+                redis-rate-limiter.burstCapacity: 10  # Allows burst requests
+                key-resolver: "#{@jwtKeyResolver}"
+
+        - id: comment-module
+          uri: lb://COMMENT-MODULE
+          predicates:
+            - Path=/comments/**
+          filters:
+            - name: JwtAuthFilter
+            - name: RequestRateLimiter
+              args:
+                redis-rate-limiter.replenishRate: 5   # 5 requests per second
+                redis-rate-limiter.burstCapacity: 10  # Allows burst requests
+                key-resolver: "#{@jwtKeyResolver}"
+
+        - id: status-module
+          uri: lb://STATUS-MODULE
+          predicates:
+            - Path=/statuses/**,/uploads/**
+          filters:
+            - name: JwtAuthFilter
+            - name: RequestRateLimiter
+              args:
+                redis-rate-limiter.replenishRate: 5   # 5 requests per second
+                redis-rate-limiter.burstCapacity: 10  # Allows burst requests
+                key-resolver: "#{@jwtKeyResolver}"
+
+        - id: follow-module
+          uri: lb://FOLLOW-MODULE
+          predicates:
+            - Path=/follows/**
+          filters:
+            - name: JwtAuthFilter
+            - name: RequestRateLimiter
+              args:
+                redis-rate-limiter.replenishRate: 5   # 5 requests per second
+                redis-rate-limiter.burstCapacity: 10  # Allows burst requests
+                key-resolver: "#{@jwtKeyResolver}"
+
+        - id: reels-module
+          uri: lb://REELS-MODULE
+          predicates:
+            - Path=/reels/**
+          filters:
+            - name: JwtAuthFilter
+            - name: RequestRateLimiter
+              args:
+                redis-rate-limiter.replenishRate: 5   # 5 requests per second
+                redis-rate-limiter.burstCapacity: 10  # Allows burst requests
+                key-resolver: "#{@jwtKeyResolver}"
+
+        - id: friend-request-module
+          uri: lb://FRIEND-REQUEST-MODULE
+          predicates:
+            - Path=/friend-requests/**
+          filters:
+            - name: JwtAuthFilter
+            - name: RequestRateLimiter
+              args:
+                redis-rate-limiter.replenishRate: 5   # 5 requests per second
+                redis-rate-limiter.burstCapacity: 10  # Allows burst requests
+                key-resolver: "#{@jwtKeyResolver}"
+
+        - id: websocket-messaging
+          uri: lb://WEBSOCKET-MESSAGING
+          predicates:
+            - Path=/ws/**
+            - Path=/web-socket/**
+          filters:
+            - name: JwtAuthFilter
+            - name: RequestRateLimiter
+              args:
+                redis-rate-limiter.replenishRate: 5   # 5 requests per second
+                redis-rate-limiter.burstCapacity: 10  # Allows burst requests
+                key-resolver: "#{@jwtKeyResolver}"
+
+        - id: notification-module
+          uri: lb://NOTIFICATION-MODULE
+          predicates:
+            - Path=/notification/**
+          filters:
+            - name: JwtAuthFilter
+            - name: RequestRateLimiter
+              args:
+                redis-rate-limiter.replenishRate: 5   # 5 requests per second
+                redis-rate-limiter.burstCapacity: 10  # Allows burst requests
+                key-resolver: "#{@jwtKeyResolver}"
+
+        - id: home_api_module
+          uri: lb://HOME-API-MODULE
+          predicates:
+            - Path=/home/api/**
+          filters:
+            - name: JwtAuthFilter
+            - name: RequestRateLimiter
+              args:
+                redis-rate-limiter.replenishRate: 5   # 5 requests per second
+                redis-rate-limiter.burstCapacity: 10  # Allows burst requests
+                key-resolver: "#{@jwtKeyResolver}"
+
+        - id: permission-module
+          uri: lb://PERMISSION-MODULE
+          predicates:
+            - Path=/permissions/**
+          filters:
+            - name: JwtAuthFilter
+            - name: RequestRateLimiter
+              args:
+                redis-rate-limiter.replenishRate: 5   # 5 requests per second
+                redis-rate-limiter.burstCapacity: 10  # Allows burst requests
+                key-resolver: "#{@jwtKeyResolver}"
+
+        - id: settings
+          uri: lb://SETTINGS
+          predicates:
+            - Path=/settings/**
+          filters:
+            - name: JwtAuthFilter
+            - name: RequestRateLimiter
+              args:
+                redis-rate-limiter.replenishRate: 5   # 5 requests per second
+                redis-rate-limiter.burstCapacity: 10  # Allows burst requests
+                key-resolver: "#{@jwtKeyResolver}"
+
+
+        - id: media-aggregate-service
+          uri: lb://MEDIA-AGGREGATE-SERVICE
+          predicates:
+            - Path=/aggregate-media/**
+          filters:
+            - name: JwtAuthFilter
+            - name: RequestRateLimiter
+              args:
+                redis-rate-limiter.replenishRate: 5   # 5 requests per second
+                redis-rate-limiter.burstCapacity: 10  # Allows burst requests
+                key-resolver: "#{@jwtKeyResolver}"
+
+
+        - id: Actuator
+          uri: lb://ACTUATOR
+          predicates:
+            - Path=/actuator/**
+          filters:
+            - name: JwtAuthFilter
+            - name: RequestRateLimiter
+              args:
+                redis-rate-limiter.replenishRate: 5   # 5 requests per second
+                redis-rate-limiter.burstCapacity: 10  # Allows burst requests
+                key-resolver: "#{@jwtKeyResolver}"
+
+
+        - id: admin-login
+          uri: lb://ADMIN-LOGIN
+          predicates:
+            - Path=/api/admin/**
+          filters:
+            - name: JwtAuthFilter
+            - name: RequestRateLimiter
+              args:
+                redis-rate-limiter.replenishRate: 5   # 5 requests per second
+                redis-rate-limiter.burstCapacity: 10  # Allows burst requests
+                key-resolver: "#{@jwtKeyResolver}"
+
+
+        - id: profession
+          uri: lb://PROFESSION
+          predicates:
+            - Path=/api/profession/**
+          filters:
+            - name: JwtAuthFilter
+# Eureka configuration
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka
+    fetch-registry: true
+    register-with-eureka: true
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  endpoint:
+    health:
+      show-details: always
+
+server:
+  port: 8080
+
+jwt:
+  secret: 843567893696976453275974432697R634976R738467TR678T34865R6834R8763T478378637664538745673865783678548735687R3
